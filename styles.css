@@ -14,9 +14,17 @@ body {
   padding: 10px;
 }
 
+.checkboxes-section {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  flex-shrink: 0;
+}
+
 .button {
   height: 32px;
-  width: 128px;
+  width: 100px;
+  flex-shrink: 1;
 }
 
 .container {
