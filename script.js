@@ -19,36 +19,38 @@ function addRowsToPage() {
     for (let i = 1; i <= gridSize; i++) {
         let row = document.createElement("div");
         row.className = "row";
-        addColumnsToRow(row);
+        addSquaresToRow(row);
         pageContent.appendChild(row);
     }
 }
 
-function addColumnsToRow(row) {
+function addSquaresToRow(row) {
     for (let i = 1; i <= gridSize; i++) {
-        row.append(createColumn());
+        row.append(createSquare());
     }
 }
 
-function createColumn() {
-    let column = document.createElement("div");
-    column.className = "column";
+function createSquare() {
+    let square = document.createElement("div");
+    square.className = "square";
     if (enableGrid) {
-        column.style.border = "1px solid black";
+        square.style.border = "1px solid black";
     }
     else {
-        column.style.border = 0;
+        square.style.border = 0;
     }
-    column.addEventListener("mouseenter", hoverEffect);
-    return column;
+    square.addEventListener("mouseenter", hoverEffect);
+    return square;
 }
 
 function hoverEffect(event) {
-    if (enableColors){
-        event.target.style.backgroundColor = "hsla(" + (Math.random() * 360) + ", 100%, 50%, 1)";
-    }
-    else {
-        event.target.style.backgroundColor = "black";
+    if (event.target.style.backgroundColor === "") {
+        if (enableColors){
+            event.target.style.backgroundColor = "hsl(" + (Math.random() * 360) + ", 100%, 50%)";
+        }
+        else {
+            event.target.style.backgroundColor = "black";
+        }
     }
 }
 
@@ -66,13 +68,12 @@ function changeGridSize(event) {
 
 function toggleColors(event) {
     enableColors = event.target.checked;
-    let allSquares = document.querySelectorAll(".column");
+    let allSquares = document.querySelectorAll(".square");
     allSquares.forEach(square => {
-        if (square.style.backgroundColor !== "" &&
-            square.style.backgroundColor !== "white")
+        if (square.style.backgroundColor !== "")
         {
             if (enableColors) {
-                square.style.backgroundColor = "hsla(" + (Math.random() * 360) + ", 100%, 50%, 1)";
+                square.style.backgroundColor = "hsl(" + (Math.random() * 360) + ", 100%, 50%)";
             }
             else {
                 square.style.backgroundColor = "black";
@@ -83,7 +84,7 @@ function toggleColors(event) {
 
 function toggleGrid(event) {
     enableGrid = event.target.checked;
-    let allSquares = document.querySelectorAll(".column");
+    let allSquares = document.querySelectorAll(".square");
     allSquares.forEach(square => {
         if (enableGrid) {
             square.style.border = "1px solid black";
